@@ -1,0 +1,4 @@
+document.querySelectorAll('.reveal').forEach((el)=>new IntersectionObserver(([entry],obs)=>{if(entry.isIntersecting){el.classList.add('in');obs.unobserve(el)}},{threshold:.14}).observe(el));
+const nav=document.querySelector('.nav');addEventListener('scroll',()=>nav&&nav.classList.toggle('scrolled',scrollY>24),{passive:true});
+document.querySelectorAll('[data-count]').forEach((el)=>new IntersectionObserver(([entry],obs)=>{if(!entry.isIntersecting)return;const end=Number(el.dataset.count),suffix=el.dataset.suffix||'',duration=1200,start=performance.now();const tick=(t)=>{const n=Math.min(1,(t-start)/duration);el.textContent=Math.round((1-Math.pow(1-n,3))*end)+suffix;if(n<1)requestAnimationFrame(tick)};requestAnimationFrame(tick);obs.unobserve(el)},{threshold:.65}).observe(el));
+document.querySelectorAll('.menu').forEach(button=>button.addEventListener('click',()=>{const links=document.querySelector('.nav-links');if(!links)return;links.classList.toggle('open')}));
